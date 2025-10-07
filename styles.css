@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    background: #0a1621;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.fondo {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('assets/fondo.png') center center/cover no-repeat;
+    z-index: 0;
+    opacity: 0.25;
+}
+
+.pantalla-inicio {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #0a1621;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.7s;
+}
+
+.texto-inicio {
+    color: #5ecbff;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px #5ecbff, 0 0 40px #5ecbff;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+}
+
+.corazon-inicio {
+    font-size: 4rem;
+    color: #5ecbff;
+    text-shadow: 0 0 40px #5ecbff, 0 0 80px #5ecbff;
+    animation: latido 1.5s infinite;
+}
+
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    20% { transform: scale(1.2); }
+    40% { transform: scale(0.95); }
+    60% { transform: scale(1.1); }
+    80% { transform: scale(1.05); }
+}
+
+.oculto {
+    display: none;
+}
+
+.contenido {
+    position: relative;
+    min-height: 100vh;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenido-central {
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 0 30px #5ecbff44;
+    backdrop-filter: blur(6px); /* desenfoque sutil del fondo detrás del panel */
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(94,203,255,0.06); /* borde muy sutil para separar */
+    text-align: center;
+    max-width: 500px;
+    z-index: 2;
+}
+
+h1 {
+    color: #5ecbff;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px #5ecbff;
+}
+
+h2 {
+    color: #5ecbff;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px #5ecbff;
+}
+
+.texto-amor {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    line-height: 1.7;
+    text-shadow: 0 0 8px #000a;
+}
+
+.corazones-container {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9999; /* poner por encima para evitar que algo lo oculte en hosting */
+}
+
+/* Corazones: usar animación CSS para mejor rendimiento */
+.corazon {
+    position: absolute;
+    left: 0;
+    top: -10vh; /* empiezan por encima */
+    font-size: 1.5rem;
+    color: #5ecbff;
+    opacity: 0.95;
+    filter: blur(0.5px);
+    text-shadow: 0 0 10px #5ecbff, 0 0 20px #5ecbff;
+    user-select: none;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+/* Animación de caída: translateY para aprovechar aceleración por GPU */
+@keyframes caer {
+    0% {
+        transform: translateY(-10vh) scale(0.9);
+        opacity: 0.0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(110vh) scale(1.15);
+        opacity: 0;
+    }
+}
+
+/* Clase aplicada dinámicamente con duración variable */
+.corazon.anim {
+    animation-name: caer;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
