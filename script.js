@@ -3,7 +3,7 @@
 // Selección automática de la canción que colocaste en assets/
 const audio = document.getElementById('audio');
 // Nombre del archivo que colocaste en assets
-const CANCION = 'assets/tu-cancion.mp3';
+const CANCION = 'tu-cancion.mp3';
 
 // Intentamos asignar la fuente y preparar el audio
 if (audio) {
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         aviso.style.fontSize = '13px';
         document.body.appendChild(aviso);
     };
-    img.src = 'assets/fondo.png';
+    img.src = 'fondo.png';
 });
 
 pantallaInicio.addEventListener('click', async () => {
