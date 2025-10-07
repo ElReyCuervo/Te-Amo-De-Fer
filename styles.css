@@ -5,6 +5,8 @@ body {
     background: #0a1621;
     overflow: hidden;
     min-height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .fondo {
