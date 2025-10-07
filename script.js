@@ -65,4 +65,49 @@ pantallaInicio.addEventListener('click', async () => {
     }, 700);
 });
 
-// Corazones cayendo (mejor rendimiento usando animaci
+const corazonesContainer = document.getElementById('corazones-container');
+let corazonesActivos = 0;
+const MAX_CORAZONES = 12; // limite de corazones en pantalla
+const CREAR_INTERVAL = 700; // ms entre intentos de crear un corazon
+
+function crearCorazon() {
+    if (!corazonesContainer) return;
+    if (corazonesActivos >= MAX_CORAZONES) return;
+    corazonesActivos++;
+
+    const corazon = document.createElement('div');
+    corazon.className = 'corazon';
+    corazon.innerText = '💙';
+
+    // Posicion horizontal aleatoria
+    const left = Math.random() * 90; // margen para que no salga cortado
+    corazon.style.left = left + 'vw';
+    corazon.style.fontSize = (Math.random() * 1.2 + 0.9) + 'rem';
+    const duracion = (Math.random() * 5 + 6).toFixed(2);
+    const delay = (Math.random() * 2).toFixed(2); // 0s - 2s
+    corazon.style.animationDuration = duracion + 's';
+    corazon.style.animationDelay = delay + 's';
+    corazon.classList.add('anim');
+    corazonesContainer.appendChild(corazon);
+    corazon.addEventListener('animationend', () => {
+        if (corazon.parentNode === corazonesContainer) corazonesContainer.removeChild(corazon);
+        corazonesActivos = Math.max(0, corazonesActivos - 1);
+    }, { once: true });
+}
+setInterval(crearCorazon, CREAR_INTERVAL);
+function lockScroll() {
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+}
+function unlockScroll() {
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+}
+lockScroll();
+pantallaInicio.addEventListener('transitionend', (e) => {
+    // cuando la transición de opacidad termine y la pantalla haya sido ocultada, desbloqueamos
+    if (pantallaInicio.classList.contains('oculto')) {
+        unlockScroll();
+    }
+});
+    
